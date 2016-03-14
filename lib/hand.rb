@@ -1,3 +1,5 @@
+# Represents a hand of cards
+# Contains much of the game logic
 class Hand
 
   attr_accessor :cards, :stayed, :split
