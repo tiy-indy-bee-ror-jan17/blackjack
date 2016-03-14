@@ -10,10 +10,11 @@ class Hand
   end
 
   def self.split_hand(hand, shoe)
-    [
-      Hand.new(hand.cards.first).deal(shoe.draw),
-      Hand.new(hand.cards.last).deal(shoe.draw)
+    hands = [
+      Hand.new(hand.cards.first),
+      Hand.new(hand.cards.last)
     ]
+    hands.each { |handy| handy.deal(shoe.draw) }
   end
 
   def value
