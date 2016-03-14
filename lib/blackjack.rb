@@ -6,6 +6,9 @@ require_relative 'scorekeeping'
 require_relative 'hand_output'
 require_relative 'advisor'
 
+# The core of the blackjack game, covering:
+# - Game flow
+# - User interface
 class Blackjack
   extend Scorekeeping
   include WinningLogic
@@ -14,14 +17,14 @@ class Blackjack
 
   attr_accessor :player_hands, :dealer_hand, :shoe, :output
 
-  def initialize(output=true)
+  def initialize(output = true)
     self.shoe          = Shoe.new
     self.player_hands  = [Hand.new]
     self.dealer_hand   = ComputerHand.new
     self.output        = output
   end
 
-  def play(greeting=true)
+  def play(greeting = true)
     self.class.games += 1
     welcome if greeting && output
     deal_hands
@@ -37,7 +40,7 @@ class Blackjack
   end
 
   def deal_hands
-    player_hands.each{|hand| hand.deal(shoe.draw(2))}
+    player_hands.each { |hand| hand.deal(shoe.draw(2)) }
     dealer_hand.deal(shoe.draw(2))
   end
 
@@ -58,9 +61,15 @@ class Blackjack
   def individual_hand(hand:, index:)
     puts "Hand ##{index + 1}:" if player_hands.length > 1 && output
     show_hands(hand: hand) if output
-    puts "Would you like to hit (h) or stand (s)#{' or split (p)' if hand.splittable?}?" if output
-    puts "You can also hit (i) if you'd like a hint." if output
+    ask_the_player(hand)
     decision(hand: hand)
+  end
+
+  def ask_the_player(hand)
+    query = 'Would you like to hit (h) or stand (s)'
+    query += ' or split (p)' if hand.splittable?
+    puts query if output
+    puts "You can also hit (i) if you'd like a hint." if output
   end
 
   def decision(hand:, hs: nil)
@@ -70,10 +79,14 @@ class Blackjack
     when 'p'
       self.class.games += 1
       split_hand(hand)
-    when 'i' then puts "\n\nWe recommend you #{advisor(hand: hand)}\n\n" if output
+    when 'i' then puts advice(hand) if output
     else
       hand.stayed = true
     end
+  end
+
+  def advice(hand)
+    "\n\nWe recommend you #{advisor(hand: hand)}\n\n"
   end
 
   def draw_card(hand:)
@@ -82,10 +95,9 @@ class Blackjack
   end
 
   def split_hand(hand)
-    self.player_hands = player_hands.reject{|ex_hand| ex_hand == hand}
+    player_hands.reject! { |ex_hand| ex_hand == hand }
     hand.split = true
-    self.player_hands += [Hand.new(hand.cards.first), Hand.new(hand.cards.last)]
-    player_hands.select{|p_hand| p_hand.cards.length < 2}.each{|p_hand| p_hand.deal(shoe.draw)}
+    self.player_hands += Hand.split_hand(hand, shoe)
     player_turn if output
   end
 
@@ -103,14 +115,12 @@ class Blackjack
   end
 
   def live_die_repeat
-    puts "\n\n\nYou've won #{self.class.streak} in a row!" if self.class.streak?
-    puts "Um. You've lost #{self.class.losing_streak} in a row. Maybe cut your losses?" if self.class.mortgage?
-    puts "Would you like to play again? (y/n)"
-    if STDIN.gets.chomp.downcase == "y"
+    self.class.streak_output if output
+    puts 'Would you like to play again? (y/n)'
+    if STDIN.gets.chomp.casecmp('y') == 0
       Blackjack.new.play(false)
     else
-      puts "Thanks for playing!"
-      puts "You won #{self.class.winners.count("player")} of #{self.class.games} hands."
+      self.class.goodbye
     end
   end
 end

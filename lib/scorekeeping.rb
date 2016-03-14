@@ -26,4 +26,18 @@ module Scorekeeping
   def losing_streak
     winners.reverse.take_while { |win| win == 'dealer' }.length
   end
+
+  def streak_output
+    puts "\n\n\nYou've won #{streak} in a row!" if streak?
+    mortgage = "Um. You've lost #{losing_streak} in a row."
+    mortgage += ' Maybe cut your losses?'
+    puts mortgage if mortgage?
+  end
+
+  def goodbye
+    puts 'Thanks for playing!'
+    results = "You won #{winners.count('player')}"
+    results += " of #{games} hands."
+    puts results
+  end
 end

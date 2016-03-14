@@ -1,5 +1,5 @@
+# Represents a dealer's hand played by the computer
 class ComputerHand < Hand
-
   def hit?
     check_busted
     value < 16
@@ -12,5 +12,4 @@ class ComputerHand < Hand
   def check_busted
     busted?
   end
-
 end
