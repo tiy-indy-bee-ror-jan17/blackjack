@@ -19,10 +19,10 @@ class Card
 
   def self.value_map
     {
-      "Ace"   => 11,
-      "King"  => 10,
-      "Queen" => 10,
-      "Jack"  => 10
+      'Ace'   => 11,
+      'King'  => 10,
+      'Queen' => 10,
+      'Jack'  => 10
     }
   end
 
