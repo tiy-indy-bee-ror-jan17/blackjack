@@ -1,7 +1,6 @@
 # Represents a card.
 # Will be integral to decks, shoes and hands
 class Card
-
   attr_accessor :face, :suit, :value
 
   def initialize(face, suit)
@@ -42,6 +41,4 @@ class Card
   def to_s
     "a #{face} of #{suit}"
   end
-
-
 end
