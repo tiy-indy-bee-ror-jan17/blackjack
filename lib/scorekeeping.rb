@@ -1,3 +1,5 @@
+# Contains class methods for keeping score
+# Also detects winning and losing streaks.
 module Scorekeeping
   attr_writer :games, :winners
 
@@ -14,7 +16,7 @@ module Scorekeeping
   end
 
   def streak
-    winners.reverse.take_while{|win| win == "player"}.length
+    winners.reverse.take_while { |win| win == 'player' }.length
   end
 
   def mortgage?
@@ -22,6 +24,6 @@ module Scorekeeping
   end
 
   def losing_streak
-    winners.reverse.take_while{|win| win == "dealer"}.length
+    winners.reverse.take_while { |win| win == 'dealer' }.length
   end
 end
