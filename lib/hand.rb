@@ -1,13 +1,10 @@
+# Represents a hand of cards
+# Contains much of the game logic
 class Hand
-
   attr_accessor :cards, :stayed, :split
 
-  def initialize(card=nil)
-    if card
-      self.cards = [card]
-    else
-      self.cards = []
-    end
+  def initialize(card = nil)
+    self.cards = card ? [card] : []
     self.stayed = false
     self.split = false
   end
@@ -25,20 +22,16 @@ class Hand
   end
 
   def busted?
-    if value > 21
-      switch_aces_as_necessary
-    end
+    switch_aces_as_necessary if value > 21
     value > 21
   end
 
   def switch_aces_as_necessary
-    until value <= 21 || !available_aces
-      available_aces.value = 1
-    end
+    available_aces.value = 1 until value <= 21 || !available_aces
   end
 
   def available_aces
-    cards.detect{|card| card.face == "Ace" && card.value == 11}
+    cards.detect { |card| card.face == 'Ace' && card.value == 11 }
   end
 
   def six_and_safe?
@@ -92,6 +85,4 @@ class Hand
   def <=>(other)
     value <=> other.value
   end
-
-
 end
