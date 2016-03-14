@@ -1,7 +1,7 @@
 require_relative 'card'
 
+# Represents a deck of cards
 class Deck < Array
-
   def initialize
     populate
     shuffle!
@@ -15,8 +15,7 @@ class Deck < Array
     end
   end
 
-  def draw(num=1)
+  def draw(num = 1)
     shift(num)
   end
-
 end
