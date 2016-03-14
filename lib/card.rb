@@ -1,3 +1,5 @@
+# Represents a card.
+# Will be integral to decks, shoes and hands
 class Card
 
   attr_accessor :face, :suit, :value
