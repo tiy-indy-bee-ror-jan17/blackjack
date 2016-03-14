@@ -5,6 +5,7 @@ require_relative 'winning_logic'
 require_relative 'scorekeeping'
 require_relative 'hand_output'
 require_relative 'advisor'
+require 'pry'
 
 # The core of the blackjack game, covering:
 # - Game flow
@@ -97,7 +98,7 @@ class Blackjack
   def split_hand(hand)
     player_hands.reject! { |ex_hand| ex_hand == hand }
     hand.split = true
-    self.player_hands += Hand.split_hand(hand, shoe)
+    player_hands.push(*Hand.split_hand(hand, shoe))
     player_turn if output
   end
 
