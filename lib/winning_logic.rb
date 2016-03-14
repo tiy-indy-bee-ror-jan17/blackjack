@@ -1,5 +1,5 @@
+# Handles the guts of determining a winner
 module WinningLogic
-
   def player_winning?(hand)
     !dealer_hand.blackjack? && !hand.busted? && winning_comparisons(hand)
   end
@@ -10,12 +10,11 @@ module WinningLogic
 
   def winner(hand:)
     if player_winning?(hand)
-      self.class.winners << "player"
-      "You"
+      self.class.winners << 'player'
+      'You'
     else
-      self.class.winners << "dealer"
-      "The house"
+      self.class.winners << 'dealer'
+      'The house'
     end
   end
-
 end

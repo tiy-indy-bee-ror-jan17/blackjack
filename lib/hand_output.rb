@@ -1,5 +1,5 @@
+# Handles the display of hands in the game
 module HandOutput
-
   def hand_string(hand:, full: false)
     str = "You're holding:\n\n"
     str += hand.to_s
@@ -15,5 +15,4 @@ module HandOutput
       dealer_hand.show_card.to_s + "\n"
     end
   end
-
 end
