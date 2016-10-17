@@ -103,9 +103,9 @@ class Blackjack
   end
 
   def dealer_turn
-    unless player_hands.all?(&:blackjack?) || player_hands.all?(&:busted?)
-      dealer_hand.deal(shoe.draw) while dealer_hand.hit? && !dealer_hand.over?
-    end
+    return unless player_hands.all?(&:blackjack?) ||
+                  player_hands.all?(&:busted?)
+    dealer_hand.deal(shoe.draw) while dealer_hand.hit? && !dealer_hand.over?
   end
 
   def winner_winner_chicken_dinner
@@ -118,7 +118,7 @@ class Blackjack
   def live_die_repeat
     self.class.streak_output if output
     puts 'Would you like to play again? (y/n)'
-    if STDIN.gets.chomp.casecmp('y') == 0
+    if STDIN.gets.chomp.casecmp('y').zero?
       Blackjack.new.play(false)
     else
       self.class.goodbye
