@@ -6,7 +6,7 @@ Rake::TestTask.new do |t|
 end
 
 file :rubocop do
-  sh 'rubocop'
+  sh 'rubocop -c rubocop.yml'
 end
 
 file :rubocop_game do
