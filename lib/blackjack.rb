@@ -118,7 +118,7 @@ class Blackjack
   def live_die_repeat
     self.class.streak_output if output
     puts 'Would you like to play again? (y/n)'
-    if STDIN.gets.chomp.casecmp('y') == 0
+    if STDIN.gets.chomp.casecmp('y').zero?
       Blackjack.new.play(false)
     else
       self.class.goodbye
