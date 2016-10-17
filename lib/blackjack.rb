@@ -103,9 +103,9 @@ class Blackjack
   end
 
   def dealer_turn
-    unless player_hands.all?(&:blackjack?) || player_hands.all?(&:busted?)
-      dealer_hand.deal(shoe.draw) while dealer_hand.hit? && !dealer_hand.over?
-    end
+    return unless player_hands.all?(&:blackjack?) ||
+                  player_hands.all?(&:busted?)
+    dealer_hand.deal(shoe.draw) while dealer_hand.hit? && !dealer_hand.over?
   end
 
   def winner_winner_chicken_dinner
