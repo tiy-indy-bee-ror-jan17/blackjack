@@ -8,11 +8,10 @@ class Deck < Array
   end
 
   def populate
-    Card.suits.each do |s|
-      Card.faces.each do |f|
-        push Card.new(f, s)
-      end
-    end
+    arr = Card.suits.product(Card.faces).collect do |s, f|
+              Card.new(f, s)
+           end
+    replace self + arr
   end
 
   def draw(num = 1)
