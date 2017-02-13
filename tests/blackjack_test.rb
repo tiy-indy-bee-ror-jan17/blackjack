@@ -71,8 +71,12 @@ class BlackjackTest < MiniTest::Test
   def test_dealer_turn
     @game.player_hands.first.deal([@jack, @seven])
     @game.dealer_hand.deal([@jack, @two])
+    refute @game.dealer_hand.over?
+    assert @game.dealer_hand.hit?
+    refute @game.player_hands.all?(&:blackjack?)
+    refute @game.player_hands.all?(&:busted?)
     @game.dealer_turn
-    assert @game.dealer_hand.cards.length > 2
+    assert @game.dealer_hand.cards.length > 2, @game.dealer_hand.inspect
   end
 
   def test_splitting
