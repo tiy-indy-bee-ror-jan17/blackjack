@@ -18,4 +18,8 @@ class Deck < Array
   def draw(num = 1)
     shift(num)
   end
+
+  def hey
+    "hey"
+  end
 end
