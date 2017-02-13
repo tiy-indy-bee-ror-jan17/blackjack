@@ -9,16 +9,12 @@ class Deck < Array
 
   def populate
     arr = Card.suits.product(Card.faces).collect do |s, f|
-              Card.new(f, s)
-           end
+      Card.new(f, s)
+    end
     replace self + arr
   end
 
   def draw(num = 1)
     shift(num)
-  end
-
-  def hey
-    "hey"
   end
 end
