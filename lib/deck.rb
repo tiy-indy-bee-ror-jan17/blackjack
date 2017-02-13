@@ -8,9 +8,9 @@ class Deck < Array
   end
 
   def populate
-    Card.suits.each do |suit|
-      Card.faces.each do |face|
-        push Card.new(face, suit)
+    Card.suits.each do |s|
+      Card.faces.each do |f|
+        push Card.new(f, s)
       end
     end
   end

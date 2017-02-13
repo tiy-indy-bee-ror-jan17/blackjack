@@ -38,6 +38,10 @@ class Card
     [other, value]
   end
 
+  def up_high
+    "Up high!"
+  end
+
   def to_s
     "a #{face} of #{suit}"
   end
